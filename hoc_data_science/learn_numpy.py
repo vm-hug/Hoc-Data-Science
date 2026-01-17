@@ -68,7 +68,7 @@ np.mean()
 np.std()
 
 #nhân tích vô hướng
-np.dot(arr1, arr2)
+np.dot(x1, x2)
 
 #hồi quy tuyến tính
 np.random.seed(0)
