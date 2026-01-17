@@ -1,6 +1,4 @@
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 
 np.array([1,2,3,4])
 
@@ -68,3 +66,23 @@ np.mean()
 
 #độ lệch chuẩn
 np.std()
+
+#nhân tích vô hướng
+np.dot(arr1, arr2)
+
+#hồi quy tuyến tính
+np.random.seed(0)
+
+sales_amounts = np.random.randint(20, size=(5,3))
+sales_amounts
+
+import pandas as pd
+
+weekly_sales = pd.DataFrame(sales_amounts , index= ["Mon" , "Tues" , "Wed" , "Thus" , "Fri"],
+                                            columns=["Almond butter" , "Peanut butter" , "Cashew butter"])
+weekly_sales
+
+prices = np.array([10,8,12])
+
+total_prices = weekly_sales.dot(prices.T)
+total_prices
