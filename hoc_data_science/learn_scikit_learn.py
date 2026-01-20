@@ -54,3 +54,41 @@ sc = StandardScaler()
 X_train[: , 3:] = sc.fit_transform(X_train[: , 3:])
 X_test[: , 3:] = sc.transform(X_test[: , 3:])
 
+# TRAIN THỬ MỘT MÔ HÌNH MÁY HỌC
+
+data = pd.read_csv('train.csv' , index_col="Id")
+data.head()
+
+features = ['LotArea','YearBuilt','1stFlrSF','2ndFlrSF','FullBath','BedroomAbvGr','TotRmsAbvGrd']
+X = data[features]
+y = data['SalePrice']
+
+from sklearn.model_selection import train_test_split
+X_train , X_test , y_train , y_test = train_test_split(X ,y , train_size=0.8 , test_size=0.2 , random_state=0)
+
+# Sử dụng Decision Tree để train
+from sklearn.tree import DecisionTreeRegressor
+dt_model = DecisionTreeRegressor(random_state=1)
+dt_model.fit(X_train , y_train)
+y_preds = dt_model.predict(X_test.head())
+
+pd.DataFrame({'y': y_test.head(), 'y_preds': y_preds})
+
+# Sử dụng RamdomForest để train
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+rf_model = RandomForestRegressor(random_state=1)
+rf_model.fit(X_train, y_train)
+
+rf_val_preds = rf_model.predict(X_test)
+
+new_house = pd.DataFrame([{
+    'LotArea': 6969,
+    'YearBuilt': 2021,
+    '1stFlrSF': 1000,
+    '2ndFlrSF': 800,
+    'FullBath': 4,
+    'BedroomAbvGr': 6,
+    'TotRmsAbvGrd': 7
+}])
+
+rf_model.predict(new_house)
