@@ -11,12 +11,12 @@ a2 = np.array([[1,2,3],[3,4,5]])
 type(a2)
 
 # hiển thị số hàng và số cột
-a2.shape
+print(a2.shape)
 
 # hiển thị số chiều của mảng
-a2.ndim
+print(a2.ndim)
 
-a2.size
+print(a2.size)
 
 #Create numpy array from hàm có sẳn (zeros , ones , full , arange , linspace)
 np.zeros([2,4] ,  dtype=int)
@@ -43,13 +43,13 @@ x2 = np.random.randint(0,10, size=6)
 
 # slicing array
 x1 = np.random.randint(20, size=6)
-x1
+print(x1)
 
-x1[1:4]
+print(x1[1:4])
 
 # reshape & transpose
 grid = np.arange(1,10)
-grid.shape
+print(grid.shape)
 
 grid.reshape((3,3))
 
@@ -62,10 +62,10 @@ x = np.array([1,2,3,99,69,3,2,1])
 np.split(x , [3,5])
 
 #tính giá trị trung bình
-np.mean()
+np.mean(x)
 
 #độ lệch chuẩn
-np.std()
+np.std(x1)
 
 #nhân tích vô hướng
 np.dot(x1, x2)
@@ -74,15 +74,15 @@ np.dot(x1, x2)
 np.random.seed(0)
 
 sales_amounts = np.random.randint(20, size=(5,3))
-sales_amounts
+print(sales_amounts)
 
 import pandas as pd
 
 weekly_sales = pd.DataFrame(sales_amounts , index= ["Mon" , "Tues" , "Wed" , "Thus" , "Fri"],
                                             columns=["Almond butter" , "Peanut butter" , "Cashew butter"])
-weekly_sales
+print(weekly_sales)
 
 prices = np.array([10,8,12])
 
 total_prices = weekly_sales.dot(prices.T)
-total_prices
+print(total_prices)

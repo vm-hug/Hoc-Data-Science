@@ -44,7 +44,10 @@ fig.colorbar(img1)
 # bar
 soft_drink_price = {"Tea" : 10,
                     "Coffe" : 20,
-                    "Milk" : 30}
+                    "Milk" : 30,
+                    "Drink" : 40,
+                    "Milkin Drink" : 50,
+                    }
 fig , ax = plt.subplots()
 ax.bar(soft_drink_price.keys() , soft_drink_price.values())
 ax.set(title= "Bach hoa xanh" , ylabel="Price $")
