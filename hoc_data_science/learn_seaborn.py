@@ -8,9 +8,9 @@ sns.set_theme()
 tips_df = sns.load_dataset('tips')
 tips_df.head()
 
-sns.histplot(tips_df["total_bill"]);
+sns.histplot(tips_df["total_bill"])
 
-sns.displot(data=tips_df , x='total_bill' , col='time' , kde=True);
+sns.displot(data=tips_df , x='total_bill' , col='time' , kde=True)
 
 cereal_df = pd.read_csv('cereal.csv')
 cereal_df.head()
@@ -45,11 +45,11 @@ cmap = sns.diverging_palette(0,230, 90,60, as_cmap=True)
 
 sns.heatmap(data= adjusted_cereal_corr , mask = adjusted_mask,
             annot=True, annot_kws={"fontsize":13} , fmt=".2f" , cmap=cmap,
-            vmin=-1 , vmax=1 , linecolor='white' , linewidths=0.5);
+            vmin=-1 , vmax=1 , linecolor='white' , linewidths=0.5)
 yticks = [i.upper() for i in adjusted_cereal_corr.index]
 xticks = [i.upper() for i in adjusted_cereal_corr.columns]
 
 ax.set_yticklabels(yticks , rotation=0)
-ax.set_xticklabels(xticks , rotation=90);
+ax.set_xticklabels(xticks , rotation=90)
 
 

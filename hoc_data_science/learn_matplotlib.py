@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-plt.style.available
+var = plt.style.available
 plt.style.use('seaborn-v0_8-darkgrid')
 
 x = [1,2,3,5]

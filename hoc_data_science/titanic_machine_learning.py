@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -31,7 +30,7 @@ convert_cat(test_df , features)
 # EDA with data Categorical
 
 train_df['Survived'].value_counts(normalize=True).to_frame()
-sns.countplot(data = train_df , x = 'Sex' , hue='Survived' , palette="Greens");
+sns.countplot(data = train_df , x = 'Sex' , hue='Survived' , palette="Greens")
 
 cols = ['Sex','Embarked','Pclass','SibSp','Parch']
 
@@ -160,7 +159,7 @@ X_train , X_val , y_train , y_val = train_test_split(X , y , test_size=0.2)
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import precision_score , recall_score , classification_report , confusion_matrix
+from sklearn.metrics import precision_score , recall_score , classification_report
 
 log_reg = LogisticRegression(solver='liblinear' , max_iter=1000)
 log_reg.fit(X_train , y_train)
