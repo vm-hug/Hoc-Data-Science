@@ -5,6 +5,7 @@ from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
+import graphviz
 
 
 # ==========================================
@@ -134,6 +135,42 @@ class ManualDecisionTree:
         print(f"{indent}└── Else ({feat_name} > {node.threshold:.4f}):")
         self.print_tree(feature_names, node.right, indent + "    ")
 
+    def export_graphviz(self, feature_names=None, class_names=None):
+        """
+        Khởi tạo và trả về đối tượng Graphviz Digraph từ cây quyết định.
+        """
+        dot = graphviz.Digraph(node_attr={'shape': 'box'})
+
+        def add_nodes_edges(node, dot):
+            # Dùng hàm id() để tạo ID duy nhất cho mỗi node trong bộ nhớ
+            node_id = str(id(node))
+
+            if node.is_leaf_node():
+                # Node lá: Hiển thị kết quả dự đoán
+                label = f"Predict: Class {node.value}"
+                if class_names is not None:
+                    label += f"\n({class_names[node.value]})"
+                dot.node(node_id, label, style="filled", fillcolor="lightgreen")
+            else:
+                # Node rẽ nhánh: Hiển thị điều kiện
+                feat_name = feature_names[node.feature] if feature_names else f"Feature {node.feature}"
+                label = f"{feat_name} <= {node.threshold:.4f}"
+                dot.node(node_id, label, style="filled", fillcolor="lightblue")
+
+                if node.left:
+                    left_id = add_nodes_edges(node.left, dot)
+                    dot.edge(node_id, left_id, label="True")
+                if node.right:
+                    right_id = add_nodes_edges(node.right, dot)
+                    dot.edge(node_id, right_id, label="False")
+
+            return node_id
+
+        if self.root is not None:
+            add_nodes_edges(self.root, dot)
+
+        return dot
+
 
 # ==========================================
 # THỰC THI LAB (RUN THE WORKFLOW)
@@ -190,3 +227,19 @@ if __name__ == "__main__":
     # BƯỚC 7: Visualize cây thủ công
     print("--- BƯỚC 7: VISUALIZE CÂY QUYẾT ĐỊNH THỦ CÔNG (TEXT-BASED) ---")
     manual_clf.print_tree(feature_names=selected_features)
+
+    # BƯỚC 7: Visualize cây thủ công bằng Graphviz
+    print("--- BƯỚC 7: VISUALIZE CÂY QUYẾT ĐỊNH (GRAPHVIZ) ---")
+
+    # Lấy tên các class từ tập dữ liệu breast cancer (malignant, benign)
+    target_names = data.target_names
+
+    # Tạo đối tượng graph từ hàm vừa viết
+    dot_data = manual_clf.export_graphviz(feature_names=selected_features, class_names=target_names)
+
+    # Hiển thị trực tiếp (nếu bạn chạy trong Jupyter Notebook)
+    # display(dot_data)
+
+    # Lưu ra file PDF hoặc PNG
+    dot_data.render("manual_decision_tree", format="png", cleanup=True)
+    print("Đã lưu sơ đồ cây quyết định dưới dạng file 'manual_decision_tree.png' trong thư mục hiện tại.")
